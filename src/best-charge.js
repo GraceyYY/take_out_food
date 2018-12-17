@@ -3,7 +3,9 @@ let discount = 0;
 let promotion = '';
 
 function bestCharge(selectedItems) {
-  return;
+  let order = processOrder(selectedItems);
+  choosePromotion(order);
+  return showDetail(order) + showPromotion() + showTotalPrice(order);
 }
 
 function getItemInfo(itemId) {
@@ -82,4 +84,8 @@ function showPromotion() {
       output += `${loadPromotions()[1].type}(${halfPriceItems.join('，')})，省${discount}元\n`;
   }
   return output;
+}
+function showTotalPrice(order) {
+  let totalPrice = calculateFullPrice(order) - discount;
+  return `-----------------------------------\n总计：${totalPrice}元\n===================================`
 }
