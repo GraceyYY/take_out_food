@@ -48,3 +48,14 @@ function halfPrice(order) {
   }
   return discount;
 }
+
+function showDetail(order) {
+  let detail = "============= 订餐明细 =============";
+  order.map((item) => {
+    let name = getItemInfo(item.id).name;
+    let num = item.num;
+    let price = getItemInfo(item.id).price;
+    detail += `\n${name} x ${num} = ${num * price}元`
+  })
+  return detail;
+}
