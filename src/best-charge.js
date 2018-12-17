@@ -24,7 +24,7 @@ function processOrder(selectedItems) {
   selectedItems.map((item) => {
     order.push({
       id: item.split(' ')[0],
-      num: item.split(' ')[2]
+      num: parseInt(item.split(' ')[2])
     });
   });
   return order;
