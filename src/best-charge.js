@@ -1,3 +1,5 @@
+let halfPriceItems = [];
+
 function bestCharge(selectedItems) {
   return;
 }
@@ -30,7 +32,7 @@ function processOrder(selectedItems) {
 
 function discountOver30(order) {
   let price = calculateFullPrice(order);
-  return price - Math.floor(price / 30) * 6;
+  return Math.floor(price / 30) * 6;
 }
 
 function halfPrice(order) {
@@ -40,6 +42,7 @@ function halfPrice(order) {
     for (let element of order) {
       if (item === element.id) {
         discount += (getItemInfo(element.id).price / 2 * element.num);
+        halfPriceItems.push(getItemInfo(item).name);
       }
     }
   }
