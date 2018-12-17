@@ -1,4 +1,6 @@
 let halfPriceItems = [];
+let discount = 0;
+let promotion = '';
 
 function bestCharge(selectedItems) {
   return;
@@ -60,3 +62,24 @@ function showDetail(order) {
   return output;
 }
 
+function choosePromotion(order) {
+  if (discountOver30(order) >= halfPrice(order)) {
+    discount = discountOver30(order);
+    promotion = 'discount over 30';
+  } else {
+    discount = halfPrice(order);
+    promotion = 'half price';
+  }
+}
+
+function showPromotion() {
+  let output = "-----------------------------------\n使用优惠：\n";
+  switch (promotion) {
+    case 'discount over 30':
+      output += `${loadPromotions()[0].type}，省${discount}元\n`;
+      break;
+    case 'half price':
+      output += `${loadPromotions()[1].type}(${halfPriceItems.join('，')})，省${discount}元\n`;
+  }
+  return output;
+}
