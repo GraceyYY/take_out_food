@@ -54,22 +54,24 @@ function halfPrice(order) {
 }
 
 function showDetail(order) {
-  let output = "============= 订餐明细 =============";
+  let output = "============= 订餐明细 =============\n";
   order.map((item) => {
     let name = getItemInfo(item.id).name;
     let num = item.num;
     let price = getItemInfo(item.id).price;
-    output += `\n${name} x ${num} = ${num * price}元`
+    output += `${name} x ${num} = ${num * price}元\n`
   })
   return output;
 }
 
 function choosePromotion(order) {
-  if (discountOver30(order) >= halfPrice(order)) {
-    discount = discountOver30(order);
+    let promotionDiscount = discountOver30(order);
+    let promotionHalfPrice = halfPrice(order);
+  if (promotionDiscount >= promotionHalfPrice) {
+    discount = promotionDiscount;
     promotion = 'discount over 30';
   } else {
-    discount = halfPrice(order);
+    discount = promotionHalfPrice;
     promotion = 'half price';
   }
 }
