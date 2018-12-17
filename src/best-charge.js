@@ -29,6 +29,19 @@ function processOrder(selectedItems) {
 }
 
 function discountOver30(order) {
-    let price = calculateFullPrice(order);
-    return price - Math.floor(price/30) * 6;
+  let price = calculateFullPrice(order);
+  return price - Math.floor(price / 30) * 6;
+}
+
+function halfPrice(order) {
+  let promotionItems = loadPromotions()[1].items;
+  let discount = 0;
+  for (let item of promotionItems) {
+    for (let element of order) {
+      if (item === element.id) {
+        discount += (getItemInfo(element.id).price / 2 * element.num);
+      }
+    }
+  }
+  return discount;
 }
