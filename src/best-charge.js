@@ -27,3 +27,8 @@ function processOrder(selectedItems) {
   });
   return order;
 }
+
+function discountOver30(order) {
+    let price = calculateFullPrice(order);
+    return price - Math.floor(price/30) * 6;
+}
