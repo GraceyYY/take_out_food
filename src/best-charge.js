@@ -13,9 +13,7 @@ function getItemInfo(itemId) {
 
 function calculateFullPrice(selectedItems) {
   return selectedItems.reduce((fullprice, item) => {
-    let id = item.split(' ')[0];
-    let num = parseInt(item.split(' ')[2]);
-    return fullprice + getItemInfo(id).price * num;
+    return fullprice + getItemInfo(item.id).price * item.num;
   }, 0);
 }
 
