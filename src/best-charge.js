@@ -19,3 +19,13 @@ function calculateFullPrice(selectedItems) {
   }, 0);
 }
 
+function processOrder(selectedItems) {
+  let order = [];
+  selectedItems.map((item) => {
+    order.push({
+      id: item.split(' ')[0],
+      num: item.split(' ')[2]
+    });
+  });
+  return order;
+}
