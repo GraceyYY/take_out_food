@@ -61,18 +61,6 @@ function halfPrice(order) {
   return discount;
 }
 
-function showDetail(order) {
-  let output = `
-============= 订餐明细 =============`;
-  order.map((item) => {
-    let name = getItemInfo(item.id).name;
-    let num = item.num;
-    let price = getItemInfo(item.id).price;
-    output += `\n${name} x ${num} = ${num * price}元`;
-  })
-  return output;
-}
-
 function choosePromotion(order) {
   discount = 0;
   promotion = '';
@@ -93,6 +81,18 @@ function choosePromotion(order) {
     discount = promotionHalfPrice;
     promotion = 'half price';
   }
+}
+
+function showDetail(order) {
+  let output = `
+============= 订餐明细 =============`;
+  order.map((item) => {
+    let name = getItemInfo(item.id).name;
+    let num = item.num;
+    let price = getItemInfo(item.id).price;
+    output += `\n${name} x ${num} = ${num * price}元`;
+  })
+  return output;
 }
 
 function showPromotion() {
