@@ -1,11 +1,21 @@
-/* 
-请把与index.html页面相关的css代码写在这里
-同时删除该注释
-*/
-
-/* #message只是一个示例，可以删除 */
 #message {
-	height: 30px;
-	line-height: 30px;
-	border: 1px solid red;
+  line-height: 30px;
+  border: 1px solid red;
+}
+
+body {
+  text-align: center;
+}
+
+.num {
+  width: 25px;
+  height: 20px;
+  margin-top: 15px;
+}
+
+.menu {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0px auto;
 }
