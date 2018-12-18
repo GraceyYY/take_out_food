@@ -1,10 +1,23 @@
-// 请把与index.html页面相关的javascript代码写在这里
-// 同时删除该注释
+window.onload = function() {
+  let items = document.getElementById('items');
+  let promotions = document.getElementById('promotions');
+  let message = document.getElementById('message');
 
-function calculatePrice() {
-  // 想办法调用`bestCharge`并且把返回的字符串
-  // 显示在html页面的`message`中
+  function loadMenu() {
+    let order = loadAllItems();
+    order.map((item) => {
+      items.innerHTML += `
+        <div class='menu'>
+            <p>${item.name}</p>
+            <p>${item.price}元</p>
+            <input type='number' value=0/>
+        </div>`
+    });
+  }
+  loadMenu();
 }
+
+function calculatePrice() {}
 
 function clear() {
   // 清除用户的选择，以及页面显示的信息
