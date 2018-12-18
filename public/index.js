@@ -48,7 +48,9 @@ function calculatePrice() {
   message.innerText = output;
 }
 
-function clear() {
-  // 清除用户的选择，以及页面显示的信息
-  // 清除之后，用户可以继续正常使用各项功能
+function clearOrder() {
+  document.querySelectorAll('.num').forEach((element) => {
+    element.value = 0;
+  });
+  message.innerText = '';
 }

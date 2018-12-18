@@ -1,36 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8"/>
     <title>Take Out Food</title>
-
-    <link rel="stylesheet" href="./index.css" />
-
+    <link rel="stylesheet" href="./index.css"/>
     <script type="text/javascript" src="../src/items.js"></script>
     <script type="text/javascript" src="../src/promotions.js"></script>
     <script type="text/javascript" src="../src/best-charge.js"></script>
     <script type="text/javascript" src="./index.js"></script>
-</head>
-<body>
-
+  </head>
+  <body>
     <h1>“好多肉”在线点餐系统</h1>
-
-    <div id="items">
-
-    </div>
-
-    <div id="promotions">
-
-    </div>
-
+    <div id="items"></div>
+    <div id="promotions"></div>
     <div>
-        <button onclick="calculatePrice()">结算</button>
-        <button onclick="clear()">清除</button>
+      <button onclick="calculatePrice()">结算</button>
+      <button onclick="clearOrder()">清除</button>
     </div>
-
-    <pre id="message">
-        /* 请将结算后产生的汇总字符串显示在这里 */
-    </pre>
-
-</body>
+    <pre id="message"></pre>
+  </body>
 </html>
