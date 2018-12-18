@@ -38,6 +38,8 @@ function discountOver30(order) {
   let price = calculateFullPrice(order);
   if (price >= 30) {
     return Math.floor(price / 30) * 6;
+  } else {
+    return false;
   }
 }
 
@@ -52,6 +54,9 @@ function halfPrice(order) {
         halfPriceItems.push(getItemInfo(item).name);
       }
     }
+  }
+  if (!halfPriceItems) {
+    return false;
   }
   return discount;
 }
@@ -69,12 +74,22 @@ function showDetail(order) {
 }
 
 function choosePromotion(order) {
+  discount = 0;
+  promotion = '';
   let promotionDiscount = discountOver30(order);
   let promotionHalfPrice = halfPrice(order);
-  if (promotionDiscount >= promotionHalfPrice) {
+  if (promotionHalfPrice && promotionDiscount) {
+    if (promotionDiscount >= promotionHalfPrice) {
+      discount = promotionDiscount;
+      promotion = 'discount over 30';
+    } else {
+      discount = promotionHalfPrice;
+      promotion = 'half price';
+    }
+  } else if (promotionDiscount) {
     discount = promotionDiscount;
     promotion = 'discount over 30';
-  } else {
+  } else if (promotionHalfPrice) {
     discount = promotionHalfPrice;
     promotion = 'half price';
   }
@@ -90,6 +105,9 @@ function showPromotion() {
       break;
     case 'half price':
       output += `\n${loadPromotions()[1].type}(${halfPriceItems.join('，')})，省${discount}元`;
+      break;
+    default:
+      output = '';
   }
   return output;
 }
