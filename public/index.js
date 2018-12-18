@@ -34,7 +34,17 @@ window.onload = function() {
   loadPromotion();
 }
 
-function calculatePrice() {}
+function calculatePrice() {
+  let items = loadAllItems();
+  let order = [];
+  items.map((item) => {
+    let id = item.id;
+    let num = document.getElementById(id).value;
+    if (num > 0) {
+      order.push(`${id} x ${num}`);
+    }
+  });
+}
 
 function clear() {
   // 清除用户的选择，以及页面显示的信息
