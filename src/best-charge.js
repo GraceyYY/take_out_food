@@ -36,10 +36,13 @@ function processOrder(selectedItems) {
 
 function discountOver30(order) {
   let price = calculateFullPrice(order);
-  return Math.floor(price / 30) * 6;
+  if (price >= 30) {
+    return Math.floor(price / 30) * 6;
+  }
 }
 
 function halfPrice(order) {
+  halfPriceItems = [];
   let promotionItems = loadPromotions()[1].items;
   let discount = 0;
   for (let item of promotionItems) {
@@ -54,19 +57,20 @@ function halfPrice(order) {
 }
 
 function showDetail(order) {
-  let output = "============= 订餐明细 =============\n";
+  let output = `
+============= 订餐明细 =============`;
   order.map((item) => {
     let name = getItemInfo(item.id).name;
     let num = item.num;
     let price = getItemInfo(item.id).price;
-    output += `${name} x ${num} = ${num * price}元\n`
+    output += `\n${name} x ${num} = ${num * price}元`;
   })
   return output;
 }
 
 function choosePromotion(order) {
-    let promotionDiscount = discountOver30(order);
-    let promotionHalfPrice = halfPrice(order);
+  let promotionDiscount = discountOver30(order);
+  let promotionHalfPrice = halfPrice(order);
   if (promotionDiscount >= promotionHalfPrice) {
     discount = promotionDiscount;
     promotion = 'discount over 30';
@@ -77,17 +81,23 @@ function choosePromotion(order) {
 }
 
 function showPromotion() {
-  let output = "-----------------------------------\n使用优惠：\n";
+  let output = `
+-----------------------------------
+使用优惠:`;
   switch (promotion) {
     case 'discount over 30':
-      output += `${loadPromotions()[0].type}，省${discount}元\n`;
+      output += `\n${loadPromotions()[0].type}，省${discount}元`;
       break;
     case 'half price':
-      output += `${loadPromotions()[1].type}(${halfPriceItems.join('，')})，省${discount}元\n`;
+      output += `\n${loadPromotions()[1].type}(${halfPriceItems.join('，')})，省${discount}元`;
   }
   return output;
 }
+
 function showTotalPrice(order) {
   let totalPrice = calculateFullPrice(order) - discount;
-  return `-----------------------------------\n总计：${totalPrice}元\n===================================`
+  return `
+-----------------------------------
+总计：${totalPrice}元
+===================================`;
 }
