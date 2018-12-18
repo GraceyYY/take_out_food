@@ -10,7 +10,7 @@ window.onload = function() {
         <div class='menu'>
             <p>${item.name}</p>
             <p>${item.price}元</p>
-            <input class='num' id=${item.id} type='number' value=0 />
+            <input class='num' id=${item.id} type='number' value=0 min=0 />
         </div>`
     });
   }
