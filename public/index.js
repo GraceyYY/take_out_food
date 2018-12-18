@@ -10,11 +10,28 @@ window.onload = function() {
         <div class='menu'>
             <p>${item.name}</p>
             <p>${item.price}元</p>
-            <input type='number' value=0/>
+            <input class='num' type='number' value=0/>
         </div>`
     });
   }
+
+  function loadPromotion() {
+    let promotionInfo = loadPromotions();
+    promotionInfo.map((item) => {
+      let result = '';
+      let promotionItems = [];
+      if (item.items) {
+        item.items.map((element) => {
+          promotionItems.push(getItemInfo(element).name);
+        });
+        result = `(${promotionItems.join('、')})`;
+      }
+      promotions.innerHTML += `
+            <p>${item.type}${result}</p>`;
+    });
+  }
   loadMenu();
+  loadPromotion();
 }
 
 function calculatePrice() {}
