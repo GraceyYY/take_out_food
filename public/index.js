@@ -44,6 +44,8 @@ function calculatePrice() {
       order.push(`${id} x ${num}`);
     }
   });
+  let output = bestCharge(order);
+  message.innerText = output;
 }
 
 function clear() {
