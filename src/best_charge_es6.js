@@ -4,8 +4,8 @@ const PROMOTIONS = loadPromotions();
 
 function bestCharge(selectedItems) {
   let order = processOrder(selectedItems);
-  let bestPromotion = choosePromotion(order);
-  return showDetail(order) + showPromotion(bestPromotion.promotion, bestPromotion.discount) + showTotalPrice(order, bestPromotion.discount);
+  let {discount,promotion} = choosePromotion(order);
+  return showDetail(order) + showPromotion(promotion, discount) + showTotalPrice(order, discount);
 }
 
 function getItemInfo(itemId) {
@@ -63,10 +63,10 @@ function choosePromotion(order) {
   let promotionDiscount = discountOver30(order);
   let promotionHalfPrice = halfPrice(order);
   if (promotionHalfPrice && promotionDiscount) {
-    tmp = promotionDiscount >= promotionHalfPrice？ {
+    tmp = (promotionDiscount >= promotionHalfPrice) ? {
       discount: promotionDiscount,
       promotion: 'discount over 30'
-    }: {
+    } : {
       discount: promotionHalfPrice,
       promotion: 'half price'
     };
