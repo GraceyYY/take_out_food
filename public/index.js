@@ -4,8 +4,7 @@ window.onload = function() {
   let message = document.getElementById('message');
 
   function loadMenu() {
-    let order = loadAllItems();
-    order.map((item) => {
+    loadAllItems().forEach(item => {
       items.innerHTML += `
         <div class='menu'>
             <p>${item.name}</p>
@@ -16,18 +15,17 @@ window.onload = function() {
   }
 
   function loadPromotion() {
-    let promotionInfo = loadPromotions();
-    promotionInfo.map((item) => {
-      let result = '';
+    PROMOTIONS.forEach(promotion => {
       let promotionItems = [];
-      if (item.items) {
-        item.items.map((element) => {
-          promotionItems.push(getItemInfo(element).name);
+      let result = '';
+      if (promotion.items) {
+        promotion.items.forEach(item => {
+          promotionItems.push(getItemInfo(item).name);
         });
         result = `(${promotionItems.join('、')})`;
       }
       promotions.innerHTML += `
-            <p>${item.type}${result}</p>`;
+            <p>${promotion.type}${result}</p>`;
     });
   }
   loadMenu();
@@ -35,21 +33,19 @@ window.onload = function() {
 }
 
 function calculatePrice() {
-  let items = loadAllItems();
   let order = [];
-  items.map((item) => {
+  loadAllItems().forEach(item => {
     let id = item.id;
     let num = document.getElementById(id).value;
     if (num > 0) {
       order.push(`${id} x ${num}`);
     }
   });
-  let output = bestCharge(order);
-  message.innerText = output;
+  message.innerText = bestCharge(order);
 }
 
 function clearOrder() {
-  document.querySelectorAll('.num').forEach((element) => {
+  document.querySelectorAll('.num').forEach(element => {
     element.value = 0;
   });
   message.innerText = '';
