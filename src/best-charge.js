@@ -112,7 +112,7 @@ function showPromotion(promotion) {
   return output;
 }
 
-function showTotalPrice(order,diccount) {
+function showTotalPrice(order,discount) {
   return `
 -----------------------------------
 总计：${calculateFullPrice(order) - discount}元
