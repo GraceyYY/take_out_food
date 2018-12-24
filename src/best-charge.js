@@ -5,7 +5,7 @@ let promotion = '';
 function bestCharge(selectedItems) {
   let order = processOrder(selectedItems);
   choosePromotion(order);
-  return showDetail(order) + showPromotion() + showTotalPrice(order);
+  return showDetail(order) + showPromotion(promotion) + showTotalPrice(order,discount);
 }
 
 function getItemInfo(itemId) {
@@ -17,18 +17,21 @@ function getItemInfo(itemId) {
   }
 }
 
-function calculateFullPrice(selectedItems) {
-  return selectedItems.reduce((fullprice, item) => {
-    return fullprice + getItemInfo(item.id).price * item.num;
+function calculateFullPrice(order) {
+  return order.reduce((fullprice, item) => {
+    return fullprice + item.price * item.num;
   }, 0);
 }
 
 function processOrder(selectedItems) {
   let order = [];
-  selectedItems.map((item) => {
+  selectedItems.forEach((item) => {
+    let itemId = item.split(' ')[0];
     order.push({
-      id: item.split(' ')[0],
-      num: parseInt(item.split(' ')[2])
+      id: itemId,
+      num: parseInt(item.split(' ')[2]),
+      name: getItemInfo(itemId).name,
+      price: getItemInfo(itemId).price
     });
   });
   return order;
@@ -50,7 +53,7 @@ function halfPrice(order) {
   for (let item of promotionItems) {
     for (let element of order) {
       if (item === element.id) {
-        discount += (getItemInfo(element.id).price / 2 * element.num);
+        discount += (element.price / 2 * element.num);
         halfPriceItems.push(getItemInfo(item).name);
       }
     }
@@ -86,16 +89,13 @@ function choosePromotion(order) {
 function showDetail(order) {
   let output = `
 ============= 订餐明细 =============`;
-  order.map((item) => {
-    let name = getItemInfo(item.id).name;
-    let num = item.num;
-    let price = getItemInfo(item.id).price;
-    output += `\n${name} x ${num} = ${num * price}元`;
-  })
+  order.forEach((item) => {
+    output += `\n${item.name} x ${item.num} = ${item.num * item.price}元`;
+  });
   return output;
 }
 
-function showPromotion() {
+function showPromotion(promotion) {
   let output = `
 -----------------------------------
 使用优惠:`;
@@ -112,10 +112,9 @@ function showPromotion() {
   return output;
 }
 
-function showTotalPrice(order) {
-  let totalPrice = calculateFullPrice(order) - discount;
+function showTotalPrice(order,diccount) {
   return `
 -----------------------------------
-总计：${totalPrice}元
+总计：${calculateFullPrice(order) - discount}元
 ===================================`;
 }
